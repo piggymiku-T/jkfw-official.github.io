@@ -281,7 +281,20 @@
         .concept-card .concept-text-wrap { flex:1 1 300px; background:transparent !important; backdrop-filter:none !important; padding:30px 40px 30px 20px; }
         .concept-card .concept-img { max-width:100%; height:auto; border-radius:16px; display:inline-block; box-shadow:0 0 20px rgba(0,212,200,0.1); }
         @media (max-width:768px){ .concept-card{flex-direction:column;gap:0;} .concept-card .concept-img-wrap,.concept-card .concept-text-wrap{flex:auto;width:100%;padding:25px;} .concept-card .concept-text-wrap{padding-top:0;} }
-
+　　　　　　　.sponsor-item {
+    background: rgba(255, 255, 255, 0.10) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    box-shadow: inset 0 0 30px rgba(255,255,255,0.04) !important;
+}
+/* 针对透明logo的白色衬底（可选择性使用） */
+.sponsor-item img[src*="clear"],
+.sponsor-item img[src*="newlogo"],
+.sponsor-item img[src*="HKKFW"],
+.sponsor-item img[src*="GKFW"] {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 6px 10px;
+    border-radius: 8px;
+}
         /* ===== 新增：深海物语 ===== */
         .story-section {
             padding: 20px 0 10px;
@@ -758,8 +771,8 @@
             ">第一章 · 静寂</span>
             <h3 style="font-size: 22px; font-weight: 700; color: #E6C87C; margin-bottom: 6px; letter-spacing: 0.5px;">深海は、いつもそこにあった。</h3>
             <p style="font-size: 15px; color: rgba(240, 248, 255, 0.85); line-height: 1.8;">
-                私たちの内側にも、静かで広い海があります。日々の忙しさに覆われて、その存在を忘れてしまうこともあるけれど、<br>
-                それは決して消えません。JKFWは、その静寂に耳を澄ませる時間を届けます。
+                私たちの内側にも、静かで広い海があります。<br>日々の忙しさに覆われて、その存在を忘れてしまうこともあるけれど、
+                それは決して消えません。<br>JKFWは、その静寂に耳を澄ませる時間を届けます。
             </p>
             <div class="wellbeing-note" style="
                 margin-top: 12px;
@@ -770,7 +783,7 @@
                 font-size: 14px;
                 color: rgba(240, 248, 255, 0.8);
             ">
-                🧘 <strong style="color:#E6C87C;">Well-being プログラム</strong> — 3回のオンライン特別講座では、モデル基礎技術とともに、<br>
+                🧘 <strong style="color:#E6C87C;">Well-being プログラム</strong> — 3回のオンライン特別講座では、モデル基礎技術とともに、
                 子ども自身が「自分はこれでいいんだ」と感じられる心のレッスンを実施しました。
             </div>
         </div>
@@ -812,7 +825,7 @@
                 font-size: 14px;
                 color: rgba(240, 248, 255, 0.8);
             ">
-                👕 <strong style="color:#E6C87C;">ファッション×対話</strong> — 毎回の「JKFWマイコーデ」は、服を通じて社会や自分自身を考えるきっかけに。<br>
+                👕 <strong style="color:#E6C87C;">ファッション×対話</strong> — 毎回の「JKFWマイコーデ」は、服を通じて社会や自分自身を考えるきっかけに、
                 家族で話し合う時間が、新しい気づきを生みます。
             </div>
         </div>
@@ -853,7 +866,7 @@
                 font-size: 14px;
                 color: rgba(240, 248, 255, 0.8);
             ">
-                🌟 <strong style="color:#E6C87C;">「昨日の自分より、一ミリ超える」</strong> 他の「誰か」と比べるのではなく、自分自身です。<br>— ４つのユニットを通じて、<br>
+                🌟 <strong style="color:#E6C87C;">「昨日の自分より、一ミリ超える」</strong> 他の「誰か」と比べるのではなく、自分自身です。<br>— ４つのユニットを通じて、
                 子どもたちは「自分のペース」で深海を泳ぎ、確かな手応えを掴みます。
             </div>
         </div>
@@ -882,7 +895,7 @@
             ">第四章 · 家族の時間</span>
             <h3 style="font-size: 22px; font-weight: 700; color: #E6C87C; margin-bottom: 6px; letter-spacing: 0.5px;">親子でつくる、かけがえのない記憶。</h3>
             <p style="font-size: 15px; color: rgba(240, 248, 255, 0.85); line-height: 1.8;">
-                現代社会は、親子が向き合う時間を奪いがちです。JKFWのプログラムには、<span style="color:#00D4C8;font-weight:600;">「親子で一緒にやる」</span>という<br>
+                現代社会は、親子が向き合う時間を奪いがちです。JKFWのプログラムには、<span style="color:#00D4C8;font-weight:600;">「親子で一緒にやる」</span>という
                 シンプルだけど大切な要素を組み込みました。親が撮影し、子が演出し、互いの「いいね」を伝え合う。<br>
                 その何気ない時間が、一生の宝物になります。
             </p>
@@ -927,7 +940,7 @@
             ">第五章 · 深海の先へ</span>
             <h3 style="font-size: 22px; font-weight: 700; color: #E6C87C; margin-bottom: 6px; letter-spacing: 0.5px; text-align: center;">ステージはゴールじゃない、スタートだ。</h3>
             <p style="font-size: 15px; color: rgba(240, 248, 255, 0.85); line-height: 1.8; text-align: center;">
-                最終課題は「ステージで最高な自分を表現する」。それはJKFWへのエントリーであり、同時に<span style="color:#E6C87C;font-weight:600;">自分自身への宣言</span>です。<br>
+                最終課題は「ステージで最高な自分を表現する」。<br>それはJKFWへのエントリーであり、同時に<span style="color:#E6C87C;font-weight:600;">自分自身への宣言</span>です。<br>
                 深海で育んだ静けさと光を胸に、子どもたちは新しい世界へと泳ぎ出します。
             </p>
             <div class="wellbeing-note" style="
