@@ -281,6 +281,328 @@
         .concept-card .concept-text-wrap { flex:1 1 300px; background:transparent !important; backdrop-filter:none !important; padding:30px 40px 30px 20px; }
         .concept-card .concept-img { max-width:100%; height:auto; border-radius:16px; display:inline-block; box-shadow:0 0 20px rgba(0,212,200,0.1); }
         @media (max-width:768px){ .concept-card{flex-direction:column;gap:0;} .concept-card .concept-img-wrap,.concept-card .concept-text-wrap{flex:auto;width:100%;padding:25px;} .concept-card .concept-text-wrap{padding-top:0;} }
+
+        /* ===== 新增：深海物语 ===== */
+        .story-section {
+            padding: 20px 0 10px;
+        }
+        .story-container {
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+            margin-top: 24px;
+        }
+        .story-chapter {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards;
+            padding-left: 20px;
+            border-left: 3px solid rgba(0, 212, 200, 0.3);
+            transition: border-color 0.4s;
+        }
+        .story-chapter:hover { border-left-color: #E6C87C; }
+        .story-chapter:nth-child(1) { animation-delay: 0.1s; }
+        .story-chapter:nth-child(2) { animation-delay: 0.3s; }
+        .story-chapter:nth-child(3) { animation-delay: 0.5s; }
+        .story-chapter:nth-child(4) { animation-delay: 0.7s; }
+        .story-chapter:nth-child(5) { animation-delay: 0.9s; }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .chapter-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #00D4C8;
+            background: rgba(0, 212, 200, 0.12);
+            padding: 2px 16px;
+            border-radius: 30px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(0, 212, 200, 0.15);
+        }
+        .story-chapter h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #E6C87C;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+        .story-chapter p {
+            font-size: 16px;
+            color: rgba(240, 248, 255, 0.85);
+            max-width: 680px;
+            line-height: 1.8;
+        }
+        .story-chapter .wellbeing-note {
+            margin-top: 10px;
+            padding: 14px 20px;
+            background: rgba(0, 212, 200, 0.06);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 212, 200, 0.1);
+            font-size: 14px;
+            color: rgba(240, 248, 255, 0.8);
+        }
+        .story-chapter .wellbeing-note strong { color: #E6C87C; }
+
+        /* ===== 新增：日程时间线 ===== */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 24px;
+        }
+        @media (max-width: 768px) {
+            .schedule-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+        .schedule-day {
+            background: rgba(10, 26, 47, 0.6);
+            border-radius: 24px;
+            padding: 28px 26px;
+            border: 1px solid rgba(0, 212, 200, 0.15);
+            transition: 0.3s;
+        }
+        .schedule-day:hover {
+            border-color: rgba(0, 212, 200, 0.4);
+            transform: translateY(-4px);
+        }
+        .schedule-day .day-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .schedule-day .day-date {
+            font-size: 28px;
+            font-weight: 800;
+            color: #E6C87C;
+        }
+        .schedule-day .day-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: #00D4C8;
+        }
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .schedule-item:last-child { border-bottom: none; }
+        .schedule-item .icon {
+            font-size: 20px;
+            min-width: 28px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        .schedule-item .time {
+            font-weight: 600;
+            color: #00D4C8;
+            min-width: 70px;
+            font-size: 15px;
+        }
+        .schedule-item .event {
+            font-size: 15px;
+            color: rgba(240, 248, 255, 0.9);
+        }
+        .schedule-item .event strong { color: #E6C87C; font-weight: 700; }
+        .schedule-note {
+            margin-top: 28px;
+            font-size: 13px;
+            color: rgba(240, 248, 255, 0.4);
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+        }
+
+        /* ===== 新增：FAQ ===== */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .faq-item {
+            background: rgba(10, 26, 47, 0.5);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 212, 200, 0.1);
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .faq-item:hover { border-color: rgba(0, 212, 200, 0.25); }
+        .faq-question {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 18px 24px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            color: #E6C87C;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.2s;
+            gap: 16px;
+        }
+        .faq-question:hover { background: rgba(0, 212, 200, 0.04); }
+        .faq-question .icon { font-size: 18px; }
+        .faq-question .arrow {
+            font-size: 14px;
+            color: #00D4C8;
+            transition: transform 0.3s;
+        }
+        .faq-item.open .faq-question .arrow { transform: rotate(180deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 24px;
+            color: rgba(240, 248, 255, 0.8);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 400px;
+            padding: 0 24px 22px 24px;
+        }
+        .faq-answer p { margin-bottom: 6px; }
+        .faq-answer p:last-child { margin-bottom: 0; }
+
+        /* ===== 新增：投票结果 ===== */
+        .vote-results {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px 50px;
+            margin: 40px 0 20px;
+        }
+        .vote-stat {
+            text-align: center;
+            padding: 20px 30px;
+            background: rgba(10, 26, 47, 0.5);
+            border-radius: 24px;
+            border: 1px solid rgba(0, 212, 200, 0.15);
+            min-width: 160px;
+            transition: 0.3s;
+        }
+        .vote-stat:hover {
+            border-color: rgba(0, 212, 200, 0.4);
+            transform: translateY(-4px);
+        }
+        .vote-stat .number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #E6C87C;
+            display: block;
+            line-height: 1.2;
+            text-shadow: 0 0 20px rgba(230, 200, 124, 0.2);
+        }
+        .vote-stat .label {
+            font-size: 14px;
+            color: rgba(240, 248, 255, 0.6);
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        .vote-message {
+            text-align: center;
+            max-width: 700px;
+            margin: 30px auto 10px;
+            padding: 24px 32px;
+            background: rgba(0, 212, 200, 0.06);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 200, 0.1);
+            font-size: 17px;
+            color: rgba(240, 248, 255, 0.85);
+            line-height: 1.8;
+        }
+        .vote-message .highlight-gold {
+            color: #E6C87C;
+            font-weight: 600;
+        }
+        .vote-message .highlight-cyan {
+            color: #00D4C8;
+            font-weight: 600;
+        }
+
+        /* ===== 新增：赞助商Logo网格 ===== */
+        .sponsor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 24px;
+            margin: 30px 0 10px;
+            justify-items: center;
+            align-items: center;
+        }
+        .sponsor-item {
+            background: rgba(10, 26, 47, 0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 16px;
+            padding: 16px 12px;
+            width: 100%;
+            max-width: 180px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .sponsor-item:hover {
+            border-color: rgba(0, 212, 200, 0.3);
+            transform: translateY(-4px);
+            background: rgba(10, 26, 47, 0.7);
+            box-shadow: 0 8px 24px rgba(0, 212, 200, 0.08);
+        }
+        .sponsor-item img {
+            max-width: 90%;
+            max-height: 70%;
+            object-fit: contain;
+            filter: brightness(0.9) saturate(0.8);
+            transition: filter 0.3s ease;
+            display: block;
+        }
+        .sponsor-item:hover img {
+            filter: brightness(1.1) saturate(1);
+        }
+        .sponsor-item .placeholder-text {
+            font-size: 13px;
+            color: rgba(240, 248, 255, 0.3);
+            text-align: center;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .sponsor-section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--data-white);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        .sponsor-section-title span { color: var(--metamorph-gold); }
+        .sponsor-sub {
+            text-align: center;
+            font-size: 15px;
+            color: rgba(240, 248, 255, 0.4);
+            margin-bottom: 30px;
+        }
+        @media (max-width: 640px) {
+            .sponsor-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+            .sponsor-item { height: 80px; padding: 12px 8px; max-width: 100%; }
+            .sponsor-item img { max-height: 60%; }
+        }
+        @media (max-width: 420px) {
+            .sponsor-grid { grid-template-columns: repeat(2, 1fr); }
+        }
     </style>
 </head>
 <body id="top">
@@ -396,6 +718,93 @@
                 </div>
             </div>
         </section>
+
+        <!-- ============================================================ -->
+        <!-- ★ 深海物语 叙事板块 ★ -->
+        <!-- ============================================================ -->
+        <section id="deepstory" class="section story-section">
+            <h2 class="section-title">深海物語 <span style="font-size:18px;font-weight:400;color:rgba(240,248,255,0.4);">— 静寂から光へ、そして孵る —</span></h2>
+            <p class="section-sub">
+                深海は生命の源。JKFW2026は、その深淵から子どもと家族の新しい物語を孵します。
+            </p>
+
+            <div class="story-container">
+
+                <!-- 第一章 -->
+                <div class="story-chapter">
+                    <span class="chapter-label">第一章 · 静寂</span>
+                    <h3>深海は、いつもそこにあった。</h3>
+                    <p>
+                        私たちの内側にも、静かで広い海があります。日々の忙しさに覆われて、その存在を忘れてしまうこともあるけれど、<br>
+                        それは決して消えません。JKFWは、その静寂に耳を澄ませる時間を届けます。
+                    </p>
+                    <div class="wellbeing-note">
+                        🧘 <strong>Well-being プログラム</strong> — 3回のオンライン特別講座では、モデル基礎技術とともに、<br>
+                        子ども自身が「自分はこれでいいんだ」と感じられる心のレッスンを実施しました。
+                    </div>
+                </div>
+
+                <!-- 第二章 -->
+                <div class="story-chapter">
+                    <span class="chapter-label">第二章 · 光</span>
+                    <h3>暗いほど、光は際立つ。</h3>
+                    <p>
+                        ファッションは、装うこと以上に「自分をどう表現するか」という問いです。<br>
+                        私たちは、一方的なトレンドをなぞるのではなく、<span class="highlight-gold">自分たちで意味を編み出す</span>ことを大切にしています。<br>
+                        そのために、親子で話し合い、考え、選ぶ「<span class="highlight-cyan">おしゃれ対話</span>」を設計しました。
+                    </p>
+                    <div class="wellbeing-note">
+                        👕 <strong>ファッション×対話</strong> — 毎回の「JKFWマイコーデ」は、服を通じて社会や自分自身を考えるきっかけに。<br>
+                        家族で話し合う時間が、新しい気づきを生みます。
+                    </div>
+                </div>
+
+                <!-- 第三章 -->
+                <div class="story-chapter">
+                    <span class="chapter-label">第三章 · 孵</span>
+                    <h3>殻を破るのは、自分自身。</h3>
+                    <p>
+                        私たちが提供するのは「正解」ではありません。歩き方、ポーズ、表情 — それらはすべて、<br>
+                        自分自身の物語を語るための<strong>「言葉」</strong>です。AIがどんなに進歩しても、<span class="highlight-gold">あなたのリアルな輝き</span>は代えがたい。
+                    </p>
+                    <div class="wellbeing-note">
+                        🌟 <strong>「昨日の自分より、一ミリ超える」</strong> 他の「誰か」と比べるのではなく、自分自身です。<br>— ４つのユニットを通じて、<br>
+                        子どもたちは「自分のペース」で深海を泳ぎ、確かな手応えを掴みます。
+                    </div>
+                </div>
+
+                <!-- 第四章：亲子时间 -->
+                <div class="story-chapter">
+                    <span class="chapter-label">第四章 · 家族の時間</span>
+                    <h3>親子でつくる、かけがえのない記憶。</h3>
+                    <p>
+                        現代社会は、親子が向き合う時間を奪いがちです。JKFWのプログラムには、<span class="highlight-cyan">「親子で一緒にやる」</span>という<br>
+                        シンプルだけど大切な要素を組み込みました。親が撮影し、子が演出し、互いの「いいね」を伝え合う。<br>
+                        その何気ない時間が、一生の宝物になります。
+                    </p>
+                    <div class="wellbeing-note">
+                        📸 <strong>ファミリーチャレンジ</strong> — 毎回の「家族で話そう」「一緒に撮影しよう」が、<br>
+                        新しい親子の会話と信頼を育みます。
+                    </div>
+                </div>
+
+                <!-- 第五章：未来へ -->
+                <div class="story-chapter">
+                    <span class="chapter-label">第五章 · 深海の先へ</span>
+                    <h3>ステージはゴールじゃない、スタートだ。</h3>
+                    <p>
+                        最終課題は「ステージで最高な自分を表現する」。それはJKFWへのエントリーであり、同時に<span class="highlight-gold">自分自身への宣言</span>です。<br>
+                        深海で育んだ静けさと光を胸に、子どもたちは新しい世界へと泳ぎ出します。
+                    </p>
+                    <div class="wellbeing-note">
+                        🎯 <strong>「ステージはゴールじゃない、スタートだ」</strong> —<br>
+                        この言葉が、JKFW2026のすべての活動を貫く信念です。
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <!-- THEME -->
         <section id="theme" class="section">
             <h2 class="section-title">DeepOcean × NATUREVERSE</h2>
@@ -453,6 +862,41 @@
                     <div class="history-card"><div class="history-year">2022</div><div class="history-location">横浜 大さん橋ホール</div><div class="history-detail">800名応募・54名出演</div><div class="history-support">横浜市後援</div></div>
                     <div class="history-card"><div class="history-year">2023</div><div class="history-location">東京 Studio Earth</div><div class="history-detail">1,020名応募・82名出演</div><div class="history-support">東京都後援</div></div>
                     <div class="history-card"><div class="history-year">2024</div><div class="history-location">愛知県国際展示場</div><div class="history-detail">900名応募・80名出演</div><div class="history-support">愛知県・名古屋市・東海テレビ</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- ★ 投票结果 ★ -->
+        <!-- ============================================================ -->
+        <section id="voting" class="section" style="padding: 60px 0 40px;">
+            <h2 class="section-title">VOTING <span style="color:#00D4C8;">2026</span></h2>
+            <p class="section-sub">
+                みなさまの一票一票が、深海を照らす光となりました。<br>
+                心を込めて、ありがとうございました。
+            </p>
+
+            <div class="vote-results">
+                <div class="vote-stat">
+                    <span class="number">400,175</span>
+                    <span class="label">累計 PV</span>
+                </div>
+                <div class="vote-stat">
+                    <span class="number">63,131</span>
+                    <span class="label">累計 UV</span>
+                </div>
+                <div class="vote-stat">
+                    <span class="number">28,523</span>
+                    <span class="label">総投票数</span>
+                </div>
+            </div>
+
+            <div class="vote-message">
+                <span class="highlight-gold">一票一票を大切にいて頂きました君へ</span><br>
+                その一票一票が、<span class="highlight-cyan">2026年の深い海を照らす光</span>となりました。<br>
+                心を込めて、ありがとうございました。
+                <div style="margin-top:14px;font-size:20px;letter-spacing:2px;color:#00D4C8;font-weight:600;">
+                    🔹 JKFW2026 深海で会おう 🔹
                 </div>
             </div>
         </section>
@@ -599,6 +1043,88 @@
             </div>
         </section>
 
+        <!-- ============================================================ -->
+        <!-- ★ 日程时间线 ★ -->
+        <!-- ============================================================ -->
+        <section id="schedule" class="section">
+            <h2 class="section-title">SCHEDULE <span style="color:#00D4C8;">2026</span></h2>
+            <p class="section-sub">メインステージのプログラム。予告なく変更される場合がございます。</p>
+
+            <div class="schedule-grid">
+
+                <!-- 8/8 (土) -->
+                <div class="schedule-day">
+                    <div class="day-header">
+                        <span class="day-date">8/8</span>
+                        <span class="day-label">⛅ 予選</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="icon">🐚</span>
+                        <span class="time">10:30</span>
+                        <span class="event">開場</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="icon">🪸</span>
+                        <span class="time">11:00</span>
+                        <span class="event"><strong>JKFW2026 1st stage ナショナルショー</strong></span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="icon">🐠</span>
+                        <span class="time">14:00</span>
+                        <span class="event">開場</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="icon">🦑</span>
+                        <span class="time">14:30</span>
+                        <span class="event"><strong>JKFW2026 2nd stage 予選ステージ</strong></span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="icon">🌟</span>
+                        <span class="time">17:00</span>
+                        <span class="event">FINAL STAGE進出発表</span>
+                    </div>
+                </div>
+
+                <!-- 8/9 (日) -->
+                <div class="schedule-day">
+                    <div class="day-header">
+                        <span class="day-date">8/9</span>
+                        <span class="day-label">🌟 決勝</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="icon">🎤</span>
+                        <span class="time">12:00</span>
+                        <span class="event"><strong>PLEDIS IDOL オーディション</strong></span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="icon">🐙</span>
+                        <span class="time">13:30</span>
+                        <span class="event">開場</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="icon">👑</span>
+                        <span class="time">14:00</span>
+                        <span class="event"><strong>JKFW2026 FINAL stage</strong></span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="icon">🏆</span>
+                        <span class="time">15:30</span>
+                        <span class="event">表彰式</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="icon">🎉</span>
+                        <span class="time">16:00</span>
+                        <span class="event">解散</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="schedule-note">
+                ※ プログラムは予告なく変更となる場合がございます。あらかじめご了承ください。
+            </div>
+        </section>
+
         <!-- ENTRY -->
         <section id="entry" class="section">
             <h2 class="section-title">ENTRY <span style="color:var(--biolight);">深海への一歩</span></h2>
@@ -610,7 +1136,7 @@
                 <div style="flex:2;">
                     <p style="font-size:22px;font-weight:700;color:var(--metamorph-gold);margin-bottom:20px;">エントリー受付中 / 追加募集決定</p>
                     <ul style="margin:20px 0;list-style:none;background:rgba(0,212,200,0.05);padding:30px;border-radius:24px;">
-                        <li style="margin-bottom:15px;">✔ 応募資格：2007年～2015年生まれ (REAL ME) / 年齢不問 (VIRTUAL BEING)</li>
+                        <li style="margin-bottom:15px;">✔ 応募資格：2008年～2022年生まれ (REAL ME) / 年齢不問 (VIRTUAL BEING)</li>
                         <li>✔ 必要書類：写真3点／自己紹介動画(任意)／参加同意書</li>
                     </ul>
                 </div>
@@ -637,25 +1163,112 @@
             </div>
         </section>
 
-        <!-- SUPPORTERS -->
-        <section style="padding:40px 0;">
-            <h2 class="section-title" style="font-size:32px;">SUPPORTERS</h2>
-            <div class="support-list">
-                <span>一般社団法人日本キッズ協会</span>
-                <span>HONGKONGKIDSFASHIONWEEK</span>
-                <span>GlobalKidsFashionWeek</span>
-                <span>ADOU ENTERTAINMENT</span>
-                <span>FramelessVillage</span>
-                <span>ODOD</span>
-                <span>X2KI</span>
-                <span>WOODS CORPORRATIONS</span>
-                <span>FUKACHAN</span>
-                <span>HASH FUTURE</span>
-                <span>淡路島国営明石海峡公園</span>
-                <span>i-Business Architect,Inc.</span>
-                <span>FRIENDS NEX CO.,LTD.</span>
+        <!-- ============================================================ -->
+        <!-- ★ FAQ ★ -->
+        <!-- ============================================================ -->
+        <section id="faq" class="section">
+            <h2 class="section-title">よくある質問 <span style="font-size:16px;font-weight:400;color:rgba(240,248,255,0.3);">— FAQ —</span></h2>
+            <p class="section-sub">エントリーや参加に関する疑問をまとめました。随時更新中。</p>
+
+            <div class="faq-list" id="faqContainer">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span><span class="icon">🌊</span> エントリーに年齢制限はありますか？</span>
+                        <span class="arrow">▾</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>はい。REAL ME部門は <strong>2008年～2022年生まれ (REAL ME)</strong> の方が対象です。VIRTUAL BEING部門は年齢不問です。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span><span class="icon">💰</span> 参加費はいくらですか？</span>
+                        <span class="arrow">▾</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>年間プログラムへの参加費は <strong>月謝：¥22,000</strong>（税込）です。これには次年度JKFWステージへ出演権利、公式フォト、デジタル証明書などなどが含まれます。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span><span class="icon">📷</span> 写真は何枚必要ですか？</span>
+                        <span class="arrow">▾</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>全身写真1枚、バストアップ1枚、スナップ1枚</strong> の計3点が必要です。いずれもスマートフォン撮影でも構いません。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span><span class="icon">🌍</span> 海外からの参加は可能ですか？</span>
+                        <span class="arrow">▾</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>可能です。オンライン書類選考後、オンラインプログラムへの参加は可能ですが、JKFW次年度のステージへ参加はオフィシャル指定開催地となります。海外からの参加者には特別サポートを用意しています。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span><span class="icon">👕</span> 衣装は自分で用意しますか？</span>
+                        <span class="arrow">▾</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>いいえ。JKFWでは、ラグジュアリーブランドを含め、基本的に運営側がブランド側との協議の元、テーマに沿ったオリジナルコーディネート</strong> でご参加いただきます。参考例は公式INSTAGRAMで随時配信中です。</p>
+                    </div>
+                </div>
             </div>
+
+            <p style="margin-top:24px;font-size:14px;color:rgba(240,248,255,0.3);">
+                ✏️ このFAQは後から自由に編集可能です。各項目のテキストを直接書き換えてください。
+            </p>
         </section>
+
+        <!-- ============================================================ -->
+        <!-- ★ 赞助商Logo网格（替换原文字列表） ★ -->
+        <!-- ============================================================ -->
+        <section id="supporters" style="padding:60px 0 40px; border-bottom:1px solid rgba(255,255,255,0.05);">
+            <h2 class="sponsor-section-title">SUPPORTERS <span>2026</span></h2>
+            <p class="sponsor-sub">JKFW2026を支えてくださるパートナーのみなさま</p>
+
+            <div class="sponsor-grid">
+                <!-- 请将每个赞助商的Logo图片上传至 images/ 文件夹，并替换下方 src 路径 -->
+                <div class="sponsor-item"><img src="images/01-1 Japan Kids.png" alt="一般社団法人日本キッズ協会" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">日本キッズ協会</span></div>
+<div class="sponsor-item"><img src="iimages/01-2.png" alt="WOODS CORPORATIONS" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">WOODS</span></div>
+                <div class="sponsor-item"><img src="images/GKFW.png" alt="GlobalKidsFashionWeek" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">Global Kids FW</span></div>
+                <div class="sponsor-item"><img src="images/HKKFW.png" alt="HONGKONGKIDSFASHIONWEEK" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">HKKFW</span></div>                
+<div class="sponsor-item"><img src="images/08-3 JAGA.jpg" alt="日本アニメ・ゲーム協会有限事業組合" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">JAGA</span></div>
+ <div class="sponsor-item"><img src="images/HF.png" alt="HASH FUTURE" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">HASH FUTURE</span></div>
+<div class="sponsor-item"><img src="images/08-4 RENSA HANNO.png" alt="RENSA　HANNO" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">RENSA</span></div>
+                <div class="sponsor-item"><img src="images/04-6 FV logo.jpg" alt="FramelessVillage" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">FramelessVillage</span></div>
+                <div class="sponsor-item"><img src="images/ODOD LOGO (1)_工作區域 1.png" alt="ODOD" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">ODOD</span></div>
+                <div class="sponsor-item"><img src="images/05-02-X2KI-logo-BLK.png" alt="X2KI" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">X2KI</span></div>
+                <div class="sponsor-item"><img src="images/newlogo＿clear.png" alt="PLEDIS" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">PLEDIS</span></div>
+                <div class="sponsor-item"><img src="images/ふかちゃんロゴ.png" alt="FUKACHAN" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">FUKACHAN</span></div>               
+                <div class="sponsor-item"><img src="images/01-3 株式会社ミナクル組織研究所.jpg" alt="株式会社ミナクル組織研究所" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">ミナクル</span></div>
+                <div class="sponsor-item"><img src="images/资源 1.png" alt="i-Business Architect,Inc." onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">i-Business</span></div>
+                <div class="sponsor-item"><img src="images/03-2 SHC.png" alt="SHC PERFORMING ACADEMY" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">SHC</span></div>
+<div class="sponsor-item"><img src="images/01-5.png" alt="HongKong Children and Teenagers Found" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">HKCTF</span></div>
+<div class="sponsor-item"><img src="images/09-3 FUNKKID.png" alt="Global Dance Studio Funkkid" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">FUNK</span></div>
+<div class="sponsor-item"><img src="images/18fa0f170c7f4cf9b249f94c643f57d9.png" alt="PASONA AWAJI YOUTH FEDERATION" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">AYE</span></div>
+<div class="sponsor-item"><img src="images/24ｈlogo-01.png" alt="24h" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">24h</span></div>
+<div class="sponsor-item"><img src="images/KTC GROUP.png" alt="KTC GROUP" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">KTC</span></div>
+<div class="sponsor-item"><img src="images/kakei.png" alt="家計の見直し堂" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">家計の見直し堂</span></div>
+<div class="sponsor-item"><img src="images/【ロゴ】ワクワクこどもLABO②.png" alt="ワクワクこどもLABO" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">ワクワク</span></div>
+<div class="sponsor-item"><img src="images/03-3 OMG.png" alt="OMG" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">OMG</span></div>
+<div class="sponsor-item"><img src="images/Etoile.jpg" alt="Etoile" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">Etoile</span></div>
+<div class="sponsor-item"><img src="images/mako.jpg" alt="M Well-being" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">Well-being</span></div>
+<div class="sponsor-item"><img src="images/keith.jpg" alt="Keith" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="placeholder-text">Keith</span></div>
+
+
+            </div>
+ 
+<!-- 无Logo赞助商（文字列表） -->
+<div class="support-list">
+    <span>淡路島国営明石海峡公園</span>
+    </div>
+        </section>
+
+        <!-- SUPPORTERS（旧文字列表已移除，上方Logo网格替代） -->
 
         <!-- FOOTER -->
         <footer>
@@ -878,6 +1491,26 @@
             window.addEventListener('resize', resizeCanvas);
             setup();
         })();
+
+        // ===== FAQ トグル =====
+        function toggleFaq(btn) {
+            var item = btn.parentElement;
+            var isOpen = item.classList.contains('open');
+            var allItems = document.querySelectorAll('.faq-item');
+            allItems.forEach(function(el) {
+                el.classList.remove('open');
+            });
+            if (!isOpen) {
+                item.classList.add('open');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var firstFaq = document.querySelector('.faq-item');
+            if (firstFaq) {
+                firstFaq.classList.add('open');
+            }
+        });
     </script>
 </body>
 </html>
