@@ -281,33 +281,30 @@
         .concept-card .concept-text-wrap { flex:1 1 300px; background:transparent !important; backdrop-filter:none !important; padding:30px 40px 30px 20px; }
         .concept-card .concept-img { max-width:100%; height:auto; border-radius:16px; display:inline-block; box-shadow:0 0 20px rgba(0,212,200,0.1); }
         @media (max-width:768px){ .concept-card{flex-direction:column;gap:0;} .concept-card .concept-img-wrap,.concept-card .concept-text-wrap{flex:auto;width:100%;padding:25px;} .concept-card .concept-text-wrap{padding-top:0;} }
-/* 赞助商卡片优化 - 让Logo更大更饱满 */
-.sponsor-item {
-    padding: 12px 10px !important;
-    background: rgba(255, 255, 255, 0.12) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.05) !important;
-}
+/* ===== 赞助商Logo统一浅色衬底（一劳永逸） ===== */
 .sponsor-item img {
-    max-width: 90% !important;
-    max-height: 85% !important;
-    object-fit: scale-down; /* 或 contain，可根据效果选择 */
-    filter: brightness(1) saturate(1);
+    background: rgba(255, 255, 255, 0.92) !important;
+    padding: 10px 14px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    max-width: 85% !important;
+    max-height: 75% !important;
+    object-fit: contain !important;
+    transition: all 0.3s ease !important;
 }
-/* 针对极长文字Logo再放宽高度限制 */
-.sponsor-item img[alt*="i-Business"],
-.sponsor-item img[alt*="HASH FUTURE"],
-.sponsor-item img[alt*="WOODS"],
-.sponsor-item img[alt*="家計"] {
-    max-height: 92% !important;
+
+/* 悬停时轻微放大，增加互动感 */
+.sponsor-item:hover img {
+    transform: scale(1.04) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
 }
-/* 透明Logo白色衬底（可选） */
-.sponsor-item img[src*="clear"],
-.sponsor-item img[src*="pledis"],
-.sponsor-item img[src*="HKKFW"] {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 4px 8px;
-    border-radius: 6px;
+
+/* 对于本身就带有深色背景的Logo，可选择性去掉衬底（可选） */
+.sponsor-item img[src*="X2KI"],
+.sponsor-item img[src*="WOODS"] {
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
 }
         /* ===== 新增：深海物语 ===== */
         .story-section {
