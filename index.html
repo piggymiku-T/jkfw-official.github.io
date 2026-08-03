@@ -281,25 +281,34 @@
         .concept-card .concept-text-wrap { flex:1 1 300px; background:transparent !important; backdrop-filter:none !important; padding:30px 40px 30px 20px; }
         .concept-card .concept-img { max-width:100%; height:auto; border-radius:16px; display:inline-block; box-shadow:0 0 20px rgba(0,212,200,0.1); }
         @media (max-width:768px){ .concept-card{flex-direction:column;gap:0;} .concept-card .concept-img-wrap,.concept-card .concept-text-wrap{flex:auto;width:100%;padding:25px;} .concept-card .concept-text-wrap{padding-top:0;} }
-/* ===== 赞助商Logo统一浅色衬底（一劳永逸） ===== */
+/* ===== 赞助商Logo铺满玻璃框（最大化填充） ===== */
+
+/* 卡片本身：减小内边距，让图片有更多空间 */
+.sponsor-item {
+    padding: 6px 8px !important;   /* 从12px 10px进一步减小 */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* 图片：填满更多空间 */
 .sponsor-item img {
-    background: rgba(255, 255, 255, 0.92) !important;
-    padding: 10px 14px !important;
-    border-radius: 12px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-    max-width: 85% !important;
-    max-height: 75% !important;
+    max-width: 95% !important;      /* 从85% → 95% */
+    max-height: 92% !important;     /* 从75% → 92% */
     object-fit: contain !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    padding: 6px 10px !important;   /* 衬底内边距减小 */
+    border-radius: 10px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
     transition: all 0.3s ease !important;
 }
 
-/* 悬停时轻微放大，增加互动感 */
+/* 悬停效果保持不变 */
 .sponsor-item:hover img {
-    transform: scale(1.04) !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+    transform: scale(1.03) !important;
 }
 
-/* 对于本身就带有深色背景的Logo，可选择性去掉衬底（可选） */
+/* 深色Logo依然保留透明（如X2KI、WOODS） */
 .sponsor-item img[src*="X2KI"],
 .sponsor-item img[src*="WOODS"] {
     background: transparent !important;
