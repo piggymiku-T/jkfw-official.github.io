@@ -1,1 +1,335 @@
+<?php
+session_start();
+require_once 'config.php';
 
+// ===== 投票截止检查（日本时间） =====
+$deadline = new DateTime(VOTE_DEADLINE, new DateTimeZone('Asia/Tokyo'));
+$now = new DateTime('now', new DateTimeZone('Asia/Tokyo'));
+$voting_closed = ($now > $deadline);
+
+// ===== 图片URL转换函数 =====
+function convertPhotoUrl($url) {
+    if (strpos($url, 'get_image.php') !== false) {
+        return $url;
+    }
+    if (empty($url) || strpos($url, 'via.placeholder.com') !== false) {
+        return $url;
+    }
+    if (strpos($url, 'uploads/avatars/') !== false) {
+        $filename = basename($url);
+        if ($filename && strpos($filename, '.') !== false) {
+            return 'http://vote.jkfw2026.com/get_image.php?file=avatars/' . $filename;
+        }
+    } elseif (strpos($url, 'uploads/model_photos/') !== false) {
+        $filename = basename($url);
+        if ($filename && strpos($filename, '.') !== false) {
+            return 'http://vote.jkfw2026.com/get_image.php?file=model_photos/' . $filename;
+        }
+    }
+    return $url;
+}
+
+if (empty($_SESSION['vote_token'])) {
+    $_SESSION['vote_token'] = bin2hex(random_bytes(32));
+}
+
+$pdo = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8", DB_USER, DB_PASS);
+
+$totalVotes = getDisplayTotalVotes($pdo);
+$totalVoters = $pdo->query("SELECT COUNT(DISTINCT user_id) FROM vote_logs")->fetchColumn();
+$totalCandidates = $pdo->query("SELECT COUNT(*) FROM candidates")->fetchColumn();
+
+$search = $_GET['search'] ?? '';
+$page = max(1, (int)($_GET['page'] ?? 1));
+$perPage = 12;
+$offset = ($page - 1) * $perPage;
+
+$where = '';
+$params = [];
+if ($search) {
+    $where = "WHERE name LIKE ? OR number LIKE ?";
+    $params = ["%$search%", "%$search%"];
+}
+$countStmt = $pdo->prepare("SELECT COUNT(*) FROM candidates $where");
+$countStmt->execute($params);
+$total = $countStmt->fetchColumn();
+$totalPages = ceil($total / $perPage);
+
+$sql = "SELECT * FROM candidates $where ORDER BY CAST(number AS UNSIGNED) LIMIT $perPage OFFSET $offset";
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$candidates = $stmt->fetchAll();
+
+// ★ 在需要时生成验证码（如果session中标记需要验证码）
+if (isset($_SESSION['require_captcha']) && $_SESSION['require_captcha'] === true) {
+    // 生成算术验证码
+    $num1 = rand(1, 9);
+    $num2 = rand(1, 9);
+    $_SESSION['captcha_answer'] = $num1 + $num2;
+    $captcha_text = $num1 . ' + ' . $num2 . ' = ?';
+}
+?>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>投票 | JKFW 2026 投票 | STAR OF DEEPOCEAN/JKFW2026 - あなたの一票が未来を変える</title>
+    <meta name="description" content="JKFW 2026 Deep Ocean 公式投票ページ。あなたの一票でキッズモデルの未来が輝く。リアルタイムランキングで応援しよう！">
+    <meta name="keywords" content="JKFW,キッズファッション,投票,キッズモデル,深海,ランキング,日本キッズ協会">
+    <meta name="author" content="JKFW運営委員会">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jkfw2026.com/vote/">
+    <meta property="og:title" content=" STAR OF DEEPOCEAN/JKFW2026 投票ページ">
+    <meta property="og:description" content="JKFW 2026 Deep Ocean 公式投票。未来のスターにあなたの一票を！">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jkfw2026.com/vote/">
+    <meta property="og:image" content="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/og-image.jpg">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:site_name" content="Japan Kids Fashion Week">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="JKFW 2026 投票 | STAR OF DEEPOCEAN/JKFW2026">
+    <meta name="twitter:description" content="JKFW 2026 公式投票ページ。あなたの一票で未来が変わる。">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/og-image.jpg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "JKFW 2026 投票ページ",
+      "description": "JKFW 2026 Deep Ocean 公式投票。あなたの一票でキッズモデルの未来を応援。",
+      "url": "https://jkfw2026.com/vote/",
+      "inLanguage": "ja",
+      "about": {
+        "@type": "Event",
+        "name": "JKFW 2026 Deep Ocean",
+        "startDate": "2026-08-06",
+        "endDate": "2026-08-09",
+        "location": {
+          "@type": "Place",
+          "name": "淡路島夢舞台国際会議場"
+        }
+      }
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="video-bg-container" aria-hidden="true">
+        <video class="bg-video" autoplay loop muted playsinline preload="metadata">
+            <source src="videos/vote-bg.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    <canvas id="bubble-canvas"></canvas>
+    <div class="container">
+        <div class="sticky-top">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/logo-nav.png" alt="JKFW 2026" class="nav-logo-main">
+                </div>
+                <div class="nav-links">
+                    <a href="index.php" style="background:rgba(0,212,200,0.1);">投票</a>
+                    <a href="rank.php">ランキング</a>
+                    <?php if(isset($_SESSION['user_id'])): ?>
+                        <a href="mypage.php" style="color:var(--biolight); font-weight:600;">👋 <?= htmlspecialchars($_SESSION['username']) ?></a>
+                        <a href="logout.php">ログアウト</a>
+                    <?php else: ?>
+                        <a href="login.php">ログイン</a>
+                        <a href="register.php" class="special-lp">新規登録</a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <div class="header">
+            <h1>🌊 STAR OF DEEPOCEAN · 投票</h1>
+            <p class="sub">JKFW 2026で最も人気なスターは、あなたの一票で決まります！</p>
+            <div class="stats">
+                <span>🗳️ 総投票数 <strong><?= $totalVotes ?></strong></span>
+                <span>👤 投票者数 <strong><?= $totalVoters ?></strong></span>
+                <span>⭐ STARモデル達 <strong><?= $totalCandidates ?></strong></span>
+            </div>
+        </div>
+        <?php if(isset($_GET['success'])): ?>
+            <div class="msg success">✅ 投票完了しました。いつも応援頂きありがとうございます❤</div>
+        <?php endif; ?>
+        <?php if(isset($_GET['error'])): ?>
+            <div class="msg error">❌ <?= htmlspecialchars($_GET['error']) ?></div>
+        <?php endif; ?>
+        <?php if(isset($_GET['logout'])): ?>
+            <div class="msg info">👋 ログアウトしました。またのご参加をお待ちしております。</div>
+        <?php endif; ?>
+        <?php if ($voting_closed): ?>
+            <div class="msg info">⏰ 投票は締め切りました。たくさんのご参加ありがとうございました！</div>
+        <?php endif; ?>
+        <div class="search-box">
+            <form method="GET" style="display:flex;gap:12px;width:100%;justify-content:center;flex-wrap:wrap;">
+                <input type="text" name="search" placeholder="選手名・エントリー番号で検索..." value="<?= htmlspecialchars($search) ?>">
+                <button type="submit">🔍 検索</button>
+            </form>
+        </div>
+        <div class="grid">
+            <?php foreach($candidates as $c): 
+                $photo_src = !empty($c['photo_url']) ? convertPhotoUrl($c['photo_url']) : 'https://via.placeholder.com/120/0C2738/00D4C8?text=?';
+            ?>
+            <div class="card">
+                <img class="photo" src="<?= htmlspecialchars($photo_src) ?>" alt="<?= htmlspecialchars($c['name']) ?>">
+                <div class="number">No. <?= htmlspecialchars($c['number']) ?></div>
+                <div class="name">
+                    <a href="player.php?id=<?= $c['id'] ?>" style="color:#fff; text-decoration:none; transition:0.3s;" onmouseover="this.style.color='var(--biolight)'" onmouseout="this.style.color='#fff'">
+                        <?= htmlspecialchars($c['name']) ?>
+                    </a>
+                </div>
+                <div class="votes">❤️ <?= $c['vote_count'] ?> 票</div>
+                <?php if(isset($_SESSION['user_id'])): ?>
+    <div style="width:100%; padding: 25px 15px; text-align:center; background: linear-gradient(145deg, rgba(0,212,200,0.06), rgba(230,200,124,0.05)); border-radius: 24px; border: 1px solid rgba(0,212,200,0.15); backdrop-filter: blur(4px); margin-top: 10px;">
+        <div style="font-size: 1.4rem; font-weight: 300; letter-spacing: 4px; color: rgba(230,200,124,0.9); margin-bottom: 6px;">
+            🌊 一票一票大切にいれて頂きました君へ
+        </div>
+        <div style="font-size: 0.85rem; color: rgba(240,248,255,0.7); line-height: 1.8; margin: 8px 0;">
+            その一票一票が、2026年の深い海を照らす光となりました。<br>
+            心を込めて、ありがとうございました。
+        </div>
+        <div style="font-size: 0.75rem; color: rgba(0,212,200,0.5); letter-spacing: 2px; margin-top: 6px;">
+            ✦ JKFW2026 深海で会おう ✦
+        </div>
+    </div>
+<?php else: ?>
+    <a href="login.php" class="btn btn-outline" style="width:100%;display:block;text-align:center;">ログインして投票</a>
+<?php endif; ?>
+                <a href="player.php?id=<?= $c['id'] ?>" class="btn btn-outline btn-sm" style="width:100%;display:block;text-align:center;margin-top:8px;padding:6px 12px;font-size:0.8rem;">📋 詳細を見る</a>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        <?php if($totalPages > 1): ?>
+        <div class="pagination">
+            <?php for($i=1; $i<=$totalPages; $i++): ?>
+                <a href="?page=<?= $i ?>&search=<?= urlencode($search) ?>" class="<?= $i==$page?'active':'' ?>"><?= $i ?></a>
+            <?php endfor; ?>
+        </div>
+        <?php endif; ?>
+        <div style="text-align:center;margin-top:30px;">
+            <a href="rank.php" class="btn btn-outline" style="padding:12px 40px;">🏆 リアルタイムランキング</a>
+        </div>
+        <p style="text-align:center;color:rgba(240,248,255,0.4);margin-top:30px;font-size:0.8rem;">
+            投票締切：<?= date('Y年n月j日 H:i', strtotime(VOTE_DEADLINE)) ?>
+        </p>
+        <footer>
+            <div>© Japan Kids Fashion Week 2026</div>
+            <div><a href="https://jkfw2026.com" target="_blank">JKFW2026 TOP</a></div>
+        </footer>
+    </div>
+    <a href="https://jkfw2026.com" target="_blank" class="jellyfish-top" title="JKFW2026 ホームへ">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24" fill="currentColor" style="margin-bottom:2px;">
+            <path d="M368 160h-64c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16zm-128 0h-64c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16zm-128 0H48c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16zm320 0h-32c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16zM256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64z"/>
+        </svg>
+        <span class="top-text">TOP</span>
+    </a>
+    <script>
+        (function() {
+            const canvas = document.getElementById('bubble-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            let lastMouseX = 0, lastMouseY = 0;
+            let mouseMoveTimer = null;
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+            function spawnBubbles(x, y, count = 2) {
+                for (let i = 0; i < count; i++) {
+                    const offsetX = (Math.random() - 0.5) * 60;
+                    const offsetY = (Math.random() - 0.5) * 40;
+                    const bubble = {
+                        x: (x + offsetX) / width,
+                        y: (y + offsetY) / height,
+                        size: 4 + Math.random() * 10,
+                        speedY: 0.0005 + Math.random() * 0.001,
+                        opacity: 0.4 + Math.random() * 0.3,
+                        life: 1.0,
+                        fadeSpeed: 0.002 + Math.random() * 0.003,
+                        colorType: Math.random() > 0.6 ? 'gold' : 'cyan',
+                        phase: Math.random() * Math.PI * 2,
+                    };
+                    particles.push(bubble);
+                }
+            }
+            function onMouseMove(e) {
+                const x = e.clientX;
+                const y = e.clientY;
+                const dist = Math.hypot(x - lastMouseX, y - lastMouseY);
+                if (dist > 30) {
+                    spawnBubbles(x, y, 1);
+                    lastMouseX = x;
+                    lastMouseY = y;
+                }
+                if (mouseMoveTimer) clearTimeout(mouseMoveTimer);
+                mouseMoveTimer = setTimeout(() => {}, 100);
+            }
+            function onTouchMove(e) {
+                if (e.touches.length > 0) {
+                    const touch = e.touches[0];
+                    onMouseMove(touch);
+                }
+            }
+            function updateParticles() {
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.y -= p.speedY;
+                    p.x += Math.sin(Date.now() * 0.001 + p.phase) * 0.0003;
+                    p.life -= p.fadeSpeed;
+                    if (p.y < 0 || p.life <= 0) {
+                        particles.splice(i, 1);
+                    }
+                }
+            }
+            function drawParticles() {
+                ctx.clearRect(0, 0, width, height);
+                for (let p of particles) {
+                    const x = p.x * width;
+                    const y = p.y * height;
+                    const size = p.size * (0.8 + 0.4 * Math.sin(Date.now() * 0.002 + p.phase));
+                    let color1, color2;
+                    if (p.colorType === 'gold') {
+                        color1 = `rgba(255, 240, 200, ${p.life * 0.8})`;
+                        color2 = `rgba(230, 200, 124, ${p.life * 0.3})`;
+                    } else {
+                        color1 = `rgba(200, 255, 240, ${p.life * 0.8})`;
+                        color2 = `rgba(0, 212, 200, ${p.life * 0.3})`;
+                    }
+                    const gradient = ctx.createRadialGradient(x-2, y-2, 1, x, y, size*1.5);
+                    gradient.addColorStop(0, color1);
+                    gradient.addColorStop(0.6, color2);
+                    gradient.addColorStop(1, 'transparent');
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(x-1, y-1, size * 0.3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${p.life * 0.3})`;
+                    ctx.fill();
+                }
+            }
+            function animate() {
+                updateParticles();
+                drawParticles();
+                requestAnimationFrame(animate);
+            }
+            function setup() {
+                resizeCanvas();
+                window.addEventListener('mousemove', onMouseMove);
+                window.addEventListener('touchmove', onTouchMove, { passive: true });
+                animate();
+            }
+            window.addEventListener('resize', resizeCanvas);
+            setup();
+        })();
+    </script>
+</body>
+</html>
