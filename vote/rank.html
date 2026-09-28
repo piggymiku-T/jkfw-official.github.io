@@ -1,1 +1,577 @@
-セッションが正しくないか期限が切れています。
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>ランキング | JKFW 2026 投票</title>
+    <meta name="description" content="JKFW 2026 Deep Ocean 投票リアルタイムランキング。現在の投票状況をチェックしよう！">
+    <link rel="canonical" href="https://jkfw2026.com/vote/rank.html">
+    <meta property="og:title" content="JKFW 2026 投票ランキング">
+    <meta property="og:description" content="JKFW 2026 投票のリアルタイムランキングです。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jkfw2026.com/vote/rank.html">
+    <meta property="og:image" content="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/images/og-image.jpg">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:site_name" content="Japan Kids Fashion Week">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 背景视频 -->
+    <div class="video-bg-container" aria-hidden="true">
+        <video class="bg-video" autoplay loop muted playsinline preload="metadata">
+            <source src="videos/vote-bg.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    <canvas id="bubble-canvas"></canvas>
+
+    <div class="container">
+        <!-- 导航 -->
+        <div class="navbar">
+            <div class="logo">
+                <img src="https://raw.githubusercontent.com/piggymiku-T/jkfw-official.github.io/main/logo-nav.png" alt="JKFW 2026" class="nav-logo-main">
+            </div>
+            <div class="nav-links">
+                <a href="index.html">投票</a>
+                <a href="rank.html" style="background:rgba(0,212,200,0.1);">ランキング</a>
+            </div>
+        </div>
+
+        <!-- 头部 -->
+        <div class="header">
+            <h1>🏆 リアルタイムランキング</h1>
+            <p class="sub">現在の投票状況をチェック！あなたの一票が順位を変えます</p>
+            <div class="stats">
+                <span>🗳️ 総投票数 <strong>28523</strong></span>
+                <span>👤 投票者数 <strong>3327</strong></span>
+                <span>⭐ STARモデル達 <strong>62</strong></span>
+            </div>
+        </div>
+
+        <!-- 排行榜表格 -->
+        <div style="margin: 30px 0; overflow-x: auto;">
+            <table class="rank-table">
+                <thead>
+                    <tr>
+                        <th>順位</th>
+                        <th>番号</th>
+                        <th>名前</th>
+                        <th>票数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="rank-num">🥇 #1</td>
+                        <td>7</td>
+                        <td>楠原　早妃愛</td>
+                        <td>❤️ 2915</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">🥈 #2</td>
+                        <td>17</td>
+                        <td>Lea</td>
+                        <td>❤️ 2407</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">🥉 #3</td>
+                        <td>26</td>
+                        <td>えな</td>
+                        <td>❤️ 1851</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#4</td>
+                        <td>5</td>
+                        <td>Emiko Elise</td>
+                        <td>❤️ 1836</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#5</td>
+                        <td>29</td>
+                        <td>王柔茜 Nora</td>
+                        <td>❤️ 1432</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#6</td>
+                        <td>47</td>
+                        <td>郭芮鈊 Irene</td>
+                        <td>❤️ 1245</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#7</td>
+                        <td>25</td>
+                        <td>虎太郎</td>
+                        <td>❤️ 1230</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#8</td>
+                        <td>35</td>
+                        <td>陳俞希 Eudora</td>
+                        <td>❤️ 1154</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#9</td>
+                        <td>24</td>
+                        <td>Kou</td>
+                        <td>❤️ 1062</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#10</td>
+                        <td>8</td>
+                        <td>SENJU</td>
+                        <td>❤️ 1042</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#11</td>
+                        <td>43</td>
+                        <td>盧信嘉 Josh</td>
+                        <td>❤️ 863</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#12</td>
+                        <td>31</td>
+                        <td>林緯妃 Fanny</td>
+                        <td>❤️ 795</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#13</td>
+                        <td>36</td>
+                        <td>陳星喬 Chelsa</td>
+                        <td>❤️ 744</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#14</td>
+                        <td>34</td>
+                        <td>洪妤蕎 Joanne</td>
+                        <td>❤️ 696</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#15</td>
+                        <td>11</td>
+                        <td>Yua</td>
+                        <td>❤️ 671</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#16</td>
+                        <td>28</td>
+                        <td>游凱茵 Katelyn</td>
+                        <td>❤️ 609</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#17</td>
+                        <td>10</td>
+                        <td>Rayna (レイ)</td>
+                        <td>❤️ 608</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#18</td>
+                        <td>23</td>
+                        <td>結愛</td>
+                        <td>❤️ 606</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#19</td>
+                        <td>6</td>
+                        <td>REYSOL</td>
+                        <td>❤️ 605</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#20</td>
+                        <td>60</td>
+                        <td>RUI</td>
+                        <td>❤️ 545</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#21</td>
+                        <td>19</td>
+                        <td>恋桃</td>
+                        <td>❤️ 457</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#22</td>
+                        <td>61</td>
+                        <td>利空</td>
+                        <td>❤️ 449</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#23</td>
+                        <td>2</td>
+                        <td>Mio</td>
+                        <td>❤️ 422</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#24</td>
+                        <td>1</td>
+                        <td>香桜（Kao）</td>
+                        <td>❤️ 381</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#25</td>
+                        <td>4</td>
+                        <td>Hide</td>
+                        <td>❤️ 361</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#26</td>
+                        <td>56</td>
+                        <td>レブ</td>
+                        <td>❤️ 297</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#27</td>
+                        <td>12</td>
+                        <td>Luther McKitrick(マッキトリック ルーサー)</td>
+                        <td>❤️ 269</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#28</td>
+                        <td>45</td>
+                        <td>郭芃妘 Kristine</td>
+                        <td>❤️ 233</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#29</td>
+                        <td>58</td>
+                        <td>あやね</td>
+                        <td>❤️ 225</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#30</td>
+                        <td>59</td>
+                        <td>AKANE</td>
+                        <td>❤️ 223</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#31</td>
+                        <td>13</td>
+                        <td>Audrey</td>
+                        <td>❤️ 168</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#32</td>
+                        <td>30</td>
+                        <td>蔡玓穎 Hailey</td>
+                        <td>❤️ 165</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#33</td>
+                        <td>33</td>
+                        <td>Naomi</td>
+                        <td>❤️ 160</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#34</td>
+                        <td>16</td>
+                        <td>Haruto</td>
+                        <td>❤️ 148</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#35</td>
+                        <td>44</td>
+                        <td>蔡昕羽 Daisy</td>
+                        <td>❤️ 137</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#36</td>
+                        <td>9</td>
+                        <td>COCO</td>
+                        <td>❤️ 123</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#37</td>
+                        <td>40</td>
+                        <td>Samuel</td>
+                        <td>❤️ 105</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#38</td>
+                        <td>37</td>
+                        <td>Ruby</td>
+                        <td>❤️ 92</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#39</td>
+                        <td>18</td>
+                        <td>nonon</td>
+                        <td>❤️ 89</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#40</td>
+                        <td>27</td>
+                        <td>陳希羽 Ariel</td>
+                        <td>❤️ 86</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#41</td>
+                        <td>32</td>
+                        <td>黃羅昱程 Eason</td>
+                        <td>❤️ 86</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#42</td>
+                        <td>48</td>
+                        <td>林芸亦(蛋寶）Natalia</td>
+                        <td>❤️ 81</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#43</td>
+                        <td>49</td>
+                        <td>林昱岑（妞妞） Regina</td>
+                        <td>❤️ 81</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#44</td>
+                        <td>21</td>
+                        <td>Yuuto</td>
+                        <td>❤️ 79</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#45</td>
+                        <td>20</td>
+                        <td>Risa</td>
+                        <td>❤️ 78</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#46</td>
+                        <td>41</td>
+                        <td>Leah</td>
+                        <td>❤️ 77</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#47</td>
+                        <td>22</td>
+                        <td>MAI</td>
+                        <td>❤️ 56</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#48</td>
+                        <td>14</td>
+                        <td>Avery</td>
+                        <td>❤️ 54</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#49</td>
+                        <td>62</td>
+                        <td>コウ</td>
+                        <td>❤️ 54</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#50</td>
+                        <td>54</td>
+                        <td>吕知恩 joy</td>
+                        <td>❤️ 50</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#51</td>
+                        <td>39</td>
+                        <td>洪莉甯 Liliane</td>
+                        <td>❤️ 41</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#52</td>
+                        <td>42</td>
+                        <td>姮希</td>
+                        <td>❤️ 41</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#53</td>
+                        <td>38</td>
+                        <td>方如麟 jojo</td>
+                        <td>❤️ 40</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#54</td>
+                        <td>46</td>
+                        <td>謝紫翎 Tiffany</td>
+                        <td>❤️ 40</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#55</td>
+                        <td>50</td>
+                        <td>陳曦 Ashley</td>
+                        <td>❤️ 40</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#56</td>
+                        <td>63</td>
+                        <td>Lily9</td>
+                        <td>❤️ 36</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#57</td>
+                        <td>51</td>
+                        <td>楊彗嫻-Teresa</td>
+                        <td>❤️ 24</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#58</td>
+                        <td>15</td>
+                        <td>Alexis</td>
+                        <td>❤️ 16</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#59</td>
+                        <td>57</td>
+                        <td>心琴</td>
+                        <td>❤️ 11</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#60</td>
+                        <td>53</td>
+                        <td>鍾瑀芙-Mita</td>
+                        <td>❤️ 10</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#61</td>
+                        <td>52</td>
+                        <td>汪映菲-Evelyn</td>
+                        <td>❤️ 8</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-num">#62</td>
+                        <td>55</td>
+                        <td>吕沐恩 Emily</td>
+                        <td>❤️ 7</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 返回投票页链接 -->
+        <div style="text-align:center; margin: 30px 0;">
+            <a href="index.html" class="btn btn-outline" style="padding:12px 40px;">← 投票ページに戻る</a>
+        </div>
+
+        <!-- 页脚 -->
+        <footer>
+            <div>© Japan Kids Fashion Week 2026</div>
+            <div><a href="https://jkfw2026.com" target="_blank">JKFW2026 TOP</a></div>
+        </footer>
+    </div>
+
+    <!-- HOME 按钮 -->
+    <a href="https://jkfw2026.com" target="_blank" class="jellyfish-top" title="JKFW2026 ホームへ">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24" fill="currentColor">
+            <path d="M368 160h-64c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16zm-128 0h-64c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16zm-128 0H48c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16zm320 0h-32c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16zM256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64z"/>
+        </svg>
+        <span class="top-text">HOME</span>
+    </a>
+
+    <!-- 气泡特效脚本 -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('bubble-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            let lastMouseX = 0, lastMouseY = 0;
+            let mouseMoveTimer = null;
+
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+
+            function spawnBubbles(x, y, count = 2) {
+                for (let i = 0; i < count; i++) {
+                    const offsetX = (Math.random() - 0.5) * 60;
+                    const offsetY = (Math.random() - 0.5) * 40;
+                    const bubble = {
+                        x: (x + offsetX) / width,
+                        y: (y + offsetY) / height,
+                        size: 4 + Math.random() * 10,
+                        speedY: 0.0005 + Math.random() * 0.001,
+                        opacity: 0.4 + Math.random() * 0.3,
+                        life: 1.0,
+                        fadeSpeed: 0.002 + Math.random() * 0.003,
+                        colorType: Math.random() > 0.6 ? 'gold' : 'cyan',
+                        phase: Math.random() * Math.PI * 2,
+                    };
+                    particles.push(bubble);
+                }
+            }
+
+            function onMouseMove(e) {
+                const x = e.clientX;
+                const y = e.clientY;
+                const dist = Math.hypot(x - lastMouseX, y - lastMouseY);
+                if (dist > 30) {
+                    spawnBubbles(x, y, 1);
+                    lastMouseX = x;
+                    lastMouseY = y;
+                }
+                if (mouseMoveTimer) clearTimeout(mouseMoveTimer);
+                mouseMoveTimer = setTimeout(() => {}, 100);
+            }
+
+            function onTouchMove(e) {
+                if (e.touches.length > 0) {
+                    const touch = e.touches[0];
+                    onMouseMove(touch);
+                }
+            }
+
+            function updateParticles() {
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.y -= p.speedY;
+                    p.x += Math.sin(Date.now() * 0.001 + p.phase) * 0.0003;
+                    p.life -= p.fadeSpeed;
+                    if (p.y < 0 || p.life <= 0) {
+                        particles.splice(i, 1);
+                    }
+                }
+            }
+
+            function drawParticles() {
+                ctx.clearRect(0, 0, width, height);
+                for (let p of particles) {
+                    const x = p.x * width;
+                    const y = p.y * height;
+                    const size = p.size * (0.8 + 0.4 * Math.sin(Date.now() * 0.002 + p.phase));
+                    let color1, color2;
+                    if (p.colorType === 'gold') {
+                        color1 = `rgba(255, 240, 200, ${p.life * 0.8})`;
+                        color2 = `rgba(230, 200, 124, ${p.life * 0.3})`;
+                    } else {
+                        color1 = `rgba(200, 255, 240, ${p.life * 0.8})`;
+                        color2 = `rgba(0, 212, 200, ${p.life * 0.3})`;
+                    }
+                    const gradient = ctx.createRadialGradient(x-2, y-2, 1, x, y, size*1.5);
+                    gradient.addColorStop(0, color1);
+                    gradient.addColorStop(0.6, color2);
+                    gradient.addColorStop(1, 'transparent');
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(x-1, y-1, size * 0.3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${p.life * 0.3})`;
+                    ctx.fill();
+                }
+            }
+
+            function animate() {
+                updateParticles();
+                drawParticles();
+                requestAnimationFrame(animate);
+            }
+
+            function setup() {
+                resizeCanvas();
+                window.addEventListener('mousemove', onMouseMove);
+                window.addEventListener('touchmove', onTouchMove, { passive: true });
+                animate();
+            }
+
+            window.addEventListener('resize', resizeCanvas);
+            setup();
+        })();
+    </script>
+</body>
+</html>
